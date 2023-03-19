@@ -104,4 +104,35 @@ public class TicTacToeGame {
         }
 
     }
+    private void computerPlay(char computerChar, char playerChar) {
+        int move;
+
+        // First, check if the computer can win
+        move = checkWinningMove(computerChar);
+        if (move != -1) {
+            board[move] = computerChar;
+            System.out.println("Computer chooses " + move + "!");
+            showBoard();
+            return;
+        }
+
+        // Next, check if the player can win and block them
+        move = checkWinningMove(playerChar);
+        if (move != -1) {
+            board[move] = computerChar;
+            System.out.println("Computer chooses " + move + "!");
+            showBoard();
+            return;
+        }
+
+        // Otherwise, take one of the available corners
+        for (int i = 1; i <= 9; i += 2) {
+            if (board[i] == ' ') {
+                board[i] = computerChar;
+                System.out.println("Computer chooses " + i + "!");
+                showBoard();
+                return;
+            }
+        }
+    }
 }
