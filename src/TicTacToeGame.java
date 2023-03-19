@@ -1,14 +1,17 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeGame {
     private char[] board = new char[10];
     private char playerLetter;
     private char computerLetter;
+    private boolean playerTurn;
 
     public TicTacToeGame() {
         for (int i = 1; i < board.length; i++) {
             board[i] = ' ';
         }
+        playerTurn = false;
     }
 
     public void displayBoard() {
@@ -54,21 +57,40 @@ public class TicTacToeGame {
         return true;
     }
 
+    public void tossCoin() {
+        Random random = new Random();
+        int result = random.nextInt(2);
+        if (result == 0) {
+            System.out.println("Heads! You play first.");
+            playerTurn = true;
+        } else {
+            System.out.println("Tails! Computer plays first.");
+        }
+    }
+
     public static void main(String[] args) {
         TicTacToeGame game = new TicTacToeGame();
         game.chooseLetter();
         game.showBoard();
+        game.tossCoin();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Enter the index to make a move:");
-            int index = scanner.nextInt();
-            if (game.board[index] != ' ') {
-                System.out.println("That cell is already occupied. Choose a different cell.");
-                continue;
-            }
-            if (game.makeMove(index, game.playerLetter)) {
+            if (game.playerTurn) {
+                System.out.println("Enter the index to make a move:");
+                int index = scanner.nextInt();
+                if (game.board[index] != ' ') {
+                    System.out.println("That cell is already occupied. Choose a different cell.");
+                    continue;
+                }
+                if (game.makeMove(index, game.playerLetter)) {
+                    game.showBoard();
+                    game.playerTurn = false;
+                }
+            } else {
+                System.out.println("Computer's turn:");
+                // Computer logic here
                 game.showBoard();
-                break;
+                game.playerTurn = true;
             }
         }
     }
