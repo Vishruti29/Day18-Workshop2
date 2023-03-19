@@ -62,6 +62,10 @@ public class TicTacToeGame {
         while (true) {
             System.out.println("Enter the index to make a move:");
             int index = scanner.nextInt();
+            if (game.board[index] != ' ') {
+                System.out.println("That cell is already occupied. Choose a different cell.");
+                continue;
+            }
             if (game.makeMove(index, game.playerLetter)) {
                 game.showBoard();
                 break;
