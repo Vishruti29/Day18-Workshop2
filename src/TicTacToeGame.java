@@ -68,30 +68,15 @@ public class TicTacToeGame {
         }
     }
 
-    public static void main(String[] args) {
-        TicTacToeGame game = new TicTacToeGame();
-        game.chooseLetter();
-        game.showBoard();
-        game.tossCoin();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            if (game.playerTurn) {
-                System.out.println("Enter the index to make a move:");
-                int index = scanner.nextInt();
-                if (game.board[index] != ' ') {
-                    System.out.println("That cell is already occupied. Choose a different cell.");
-                    continue;
-                }
-                if (game.makeMove(index, game.playerLetter)) {
-                    game.showBoard();
-                    game.playerTurn = false;
-                }
-            } else {
-                System.out.println("Computer's turn:");
-                // Computer logic here
-                game.showBoard();
-                game.playerTurn = true;
-            }
-        }
+    public boolean checkWinner(char letter) {
+        // Check rows
+        if (board[1] == letter && board[2] == letter && board[3] == letter) return true;
+        if (board[4] == letter && board[5] == letter && board[6] == letter) return true;
+        if (board[7] == letter && board[8] == letter && board[9] == letter) return true;
+        // Check columns
+        if (board[1] == letter && board[4] == letter && board[7] == letter) return true;
+        if (board[2] == letter && board[5] == letter && board[8] == letter) return true;
+        if (board[3] == letter && board[6] == letter && board[9] == letter) return true;
+        // Check diagonals
     }
 }
