@@ -41,9 +41,31 @@ public class TicTacToeGame {
         System.out.println("You chose " + playerLetter + ". Computer will be " + computerLetter + ".");
     }
 
+    public boolean makeMove(int index, char letter) {
+        if (index < 1 || index > 9) {
+            System.out.println("Invalid input. Choose a number from 1 to 9.");
+            return false;
+        }
+        if (board[index] != ' ') {
+            System.out.println("That cell is already occupied. Choose a different cell.");
+            return false;
+        }
+        board[index] = letter;
+        return true;
+    }
+
     public static void main(String[] args) {
         TicTacToeGame game = new TicTacToeGame();
         game.chooseLetter();
         game.showBoard();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter the index to make a move:");
+            int index = scanner.nextInt();
+            if (game.makeMove(index, game.playerLetter)) {
+                game.showBoard();
+                break;
+            }
+        }
     }
 }
