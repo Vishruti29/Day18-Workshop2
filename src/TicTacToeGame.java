@@ -67,6 +67,32 @@ public class TicTacToeGame {
             System.out.println("Tails! Computer plays first.");
         }
     }
+    public void playComputerTurn() {
+        System.out.println("Computer's turn");
+        int computerMove = -1;
+
+        // Check if computer can win in the next move
+        for (int i = 1; i <= 9; i++) {
+            if (board[i] == ' ') {
+                board[i] = computerLetter;
+                if (checkForWin(computerLetter)) {
+                    computerMove = i;
+                    break;
+                }
+                board[i] = ' ';
+            }
+        }
+
+        // If computer cannot win, make a random move
+        if (computerMove == -1) {
+            computerMove = getRandomMove();
+        }
+
+        board[computerMove] = computerLetter;
+        currentTurn = playerLetter;
+        showBoard();
+    }
+
 
     public boolean checkWinner(char letter) {
         // Check rows
@@ -80,3 +106,4 @@ public class TicTacToeGame {
         // Check diagonals
     }
 }
+
